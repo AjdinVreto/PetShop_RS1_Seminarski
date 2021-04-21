@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rs1-pet-shop-webapp", "rs1-pet-shop-webapp\rs1-pet-shop-webapp.csproj", "{535D65DC-0950-4582-B8F0-A5E1FACCD80A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podaci", "Podaci\Podaci.csproj", "{35D37DC0-9814-46B8-891E-585B52C0211D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{535D65DC-0950-4582-B8F0-A5E1FACCD80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{535D65DC-0950-4582-B8F0-A5E1FACCD80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{535D65DC-0950-4582-B8F0-A5E1FACCD80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{535D65DC-0950-4582-B8F0-A5E1FACCD80A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D37DC0-9814-46B8-891E-585B52C0211D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D37DC0-9814-46B8-891E-585B52C0211D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D37DC0-9814-46B8-891E-585B52C0211D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D37DC0-9814-46B8-891E-585B52C0211D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5522B30B-724C-48F2-8515-808CC2C6D5E1}
+	EndGlobalSection
+EndGlobal

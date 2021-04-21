@@ -1,0 +1,133 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Korisnik.Profil.ProfilAdreseVM;
+
+
+@{ 
+    Layout = "_KorisnikLayout";
+
+    var listaAdresa = (List<rs1_pet_shop_webapp.ViewModels.Korisnik.Profil.ProfilAdreseVM>)ViewData["adreseKey"]; 
+ }
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        .main {
+            background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+        }
+
+        .searchText {
+            font-size: 17px;
+        }
+
+        .searchButton {
+            font-size: 17px;
+        }
+
+        .dropdown-menu {
+            background-color: bisque;
+        }
+
+        .form {
+            font-size: 25px;
+        }
+
+        .form-control {
+            font-size: 15px;
+        }
+
+        .nav {
+            font-size: 12px;
+        }
+
+        .meni {
+            background-color: white;
+            font-weight: bold;
+        }
+
+        .lbl {
+            font-size: 17px;
+        }
+
+        .vaseAdrese {
+            font-size: 20px;
+        }
+
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .error {
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+
+
+<div class="main py-5">
+    <div class="container">
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="meni"><a asp-controller="Profil" asp-action="Index">Osnove</a></li>
+                <li class="meni"><a asp-controller="Profil" asp-action="Adrese">Adrese</a></li>
+                <li class="meni"><a asp-controller="Profil" asp-action="Password">Password</a></li>
+                <li class="meni"><a asp-controller="Report" asp-action="Index">Historija narudžbi</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <hr>
+                    <form class="form" method="post" asp-controller="Profil" asp-action="Adrese">
+                        <input asp-for="KorisnikId" value="@Model.KorisnikId" hidden />
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="adresa"><h4 class="lbl">Adresa</h4></label> <span asp-validation-for="Adresa" class="error"></span>
+                                <input asp-for="Adresa" type="text" class="form-control" id="adresa" placeholder="Adresa" title="Unesite adresu">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="grad"><h4 class="lbl">Grad</h4></label> <span asp-validation-for="Grad" class="error"></span>
+                                <input asp-for="Grad" type="text" class="form-control" id="grad" placeholder="Grad" title="Unesite grad">
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <div class="col-xs-12">
+                                <br>
+                                <input class="btn btn-lg btn-success mb-5" type="submit" value="Dodaj adresu" />
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <label class="vaseAdrese">Vaše adrese</label>
+                    </div>
+                    @foreach (var item in listaAdresa)
+                    {
+                        <div class="col-xs-6 mt-5">
+                            <label class="lbl">Adresa:</label>
+                            <input class="form-control" value="@item.Adresa" readonly />
+                        </div>
+                        <div class="col-xs-6 mt-5">
+                            <label class="lbl">Grad:</label>
+                            <input class="form-control" value="@item.Grad" readonly />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

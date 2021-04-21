@@ -1,0 +1,29 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminProizvodjacVM
+@{
+    string title = Model?.Title;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@title Proizvodjac</h1>
+
+
+@if (Model?.ProizvodjaciList?.Count() > 0)
+{
+    <h3>Novosti count: @Model?.ProizvodjaciList?.Count</h3>
+    <ul class="list-unstyled">
+        @foreach (var proizvodjac in Model.ProizvodjaciList)
+        {
+            <li class="media my-1 d-flex border-bottom">
+                <div class="d-flex flex-row w-100">
+                    <p class="col-4">@proizvodjac.Naziv</p>
+                    <p class="col-4">@proizvodjac.Drzava.Naziv</p>
+                    <a asp-route="AdminProizvodjacUredi" asp-route-id="@proizvodjac.Id" class="btn btn-success mb-1 col-2">Uredi</a>
+                    <form class="col-2" asp-route="AdminProizvodjacObrisi" method="post" onsubmit="return confirm('Obrisi proizvodjaca?');">
+                        <input type="hidden" name="Id" value="@proizvodjac.Id" />
+                        <button class="btn btn-danger w-100">Obrisi</button>
+                    </form>
+                </div>
+            </li>
+        }
+    </ul>
+}

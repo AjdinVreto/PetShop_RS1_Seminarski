@@ -1,0 +1,54 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Korisnik.NovostiDetaljiVM;
+
+
+@{
+    ViewData["Title"] = "NovostiDetalji";
+    Layout = "_KorisnikLayout";
+}
+
+<head>
+    <style>
+        .main {
+            background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+        }
+
+        .txt{
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .txt2{
+            font-size:35px;
+            font-weight:bold;
+        }
+
+        .slika{
+            height:420px;
+            width:920px;
+        }
+    </style>
+</head>
+
+<div class="main py-5">
+    <div class="container">
+
+        <h1 class="txt2 my-5">
+            @Model.Naslov
+        </h1>
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="slika img-fluid" src="~/images/@Model.Slika">
+            </div>
+
+            <div class="col-md-4">
+                <p class="txt">@Model.Tekst </p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

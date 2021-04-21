@@ -1,0 +1,57 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminPopustKuponVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table tr th,
+    table tr td{
+        padding: 1rem;
+    }
+</style>
+
+<h1>Popust kuponi</h1>
+
+<table class="w-100 table-secondary">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Iznos</td>
+            <td>Tip</td>
+            <td>Kod</td>
+            <td>Action</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.PopustKuponList.Count > 0)
+    {
+        @foreach (var kupon in Model.PopustKuponList)
+        {
+            <tr>
+                <td>@kupon.Id</td>
+                <td>@kupon.Iznos</td>
+                <td>@if (kupon.VrstaPopusta == "fix") {<span>KM</span> } else { <span>%</span>}</td>
+                <td>@kupon.Kod</td>
+                <td><a class="btn btn-success" asp-route="AdminKuponUredi" asp-route-id="@kupon.Id">Uredi</a></td>
+                <td><button class="btn btn-danger" onclick="obrisiKupon(this, @kupon.Id);" >Obrisi</button></td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr colspan="5">
+            <td>Zapisi nisu pronadjeni!</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<script>
+    function obrisiKupon(el, id) {
+        if (!window.confirm("Obrisi kupon ID: " + id)) return;
+        fetch(`/Admin/PopustKupon/Obrisi?id=${id}`, { method: "POST" }).then(() => {
+            el.parentNode.parentNode.remove();
+        })
+    }
+</script>

@@ -1,0 +1,45 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminDodajProizvodVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Uredi</h1>
+
+<form asp-route="AdminProizvodUredi" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="Naziv" asp-for="Naziv">Naziv</label>
+        <input type="text" class="form-control" id="Naziv" name="Naziv" asp-for="Naziv" value="@Model?.Naziv">
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="KategorijaId">Kategorija</label>
+        <select class="form-control custom-select" id="KategorijaId" asp-for="KategorijaId" value="@Model?.KategorijaId">
+            @foreach (var k in Model.KategorijaList)
+            {
+                <option value="@k.Id">@k.Vrsta</option>
+            }
+        </select>
+        <span asp-validation-for="KategorijaId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProizvodjacId">Proizvodjac</label>
+        <select class="form-control custom-select" id="ProizvodjacId" asp-for="ProizvodjacId" value="@Model?.ProizvodjacId">
+            @foreach (var p in Model.ProizvodjacList)
+            {
+                <option value="@p.Id">@p.Naziv</option>
+            }
+        </select>
+        <span asp-validation-for="ProizvodjacId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Spremi</button>
+</form>
+
+<script>
+    window.onload = function () {
+        const currVal = [`@Model.KategorijaId`, `@Model.ProizvodjacId`];
+        [...document.querySelectorAll("select")].forEach((s,ix) => {
+            [...s.querySelectorAll("option")].forEach(opt => opt.selected = opt.value === currVal[ix] )
+        });
+    }
+</script>

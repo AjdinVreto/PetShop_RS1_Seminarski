@@ -1,0 +1,40 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminDrzavaVM
+@{
+    ViewData["Title"] = "Drzava";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Drzava</h1>
+<form method="post" asp-route="AdminDrzavaDodaj" class="box-shadow p-1 mt-2 mb-2 border-info border-top" style="border: 1px solid">
+    <h3>Quick add: </h3>
+    <div class="form-group d-flex flex-wrap">
+        <label asp-for="Naziv" class="d-none">Naziv</label>
+        <input type="text" class="form-control col-9" name="Naziv" id="Naziv" asp-for="Naziv" placeholder="Naziv drzave"/>
+        <button type="submit" class="btn btn-primary col-2 offset-1">Dodaj</button>
+        <span asp-validation-for="Naziv" class="text-danger col-12"></span>
+    </div>
+</form>
+
+@if (Model?.DrzavaList?.Count() > 0)
+{
+    <h3>Drzava count: @Model?.DrzavaList?.Count</h3>
+    <ul class="list-unstyled">
+        @foreach (var drzava in Model.DrzavaList)
+        {
+            <li class="media my-1 d-flex">
+                <div class="d-flex flex-row w-100">
+                    <form class="d-flex col-10" asp-route="AdminDrzavaUredi" method="post">
+                        <input type="hidden" name="Id" value="@drzava.Id" />
+                        <input class="col-8 rounded" type="text" name="Naziv" asp-for="Naziv" value="@drzava.Naziv" placeholder="Naziv" />
+                        <button class="btn btn-info col-3 offset-1">Uredi</button>
+                    </form>
+                    <form class="col-2 p-0" asp-route="AdminDrzavaObrisi" method="post" onsubmit="return confirm('Obrisi drzavu?');">
+                        <input type="hidden" name="Id" value="@drzava.Id" />
+                        <button class="btn btn-danger w-100">Obrisi</button>
+                    </form>
+                </div>
+            </li>
+        }
+    </ul>
+}
+

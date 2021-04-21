@@ -1,0 +1,96 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminNarudzbaVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    double cijenaTotal = 0;
+    int kolicinaTotal = 0;
+    int brProizvoda = 0;
+
+    var narudzba = Model;
+}
+
+
+<h1>Pregled narudzbe</h1>
+
+<table class="w-100 table-secondary table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Adresa</th>
+            <th>Aktivna </th>
+            <th>Datum</th>
+            <th>Zavrsena</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@narudzba.Id</td>
+            <td>@(narudzba.Adresa != null ? narudzba.Adresa.Naziv : null)</td>
+            @if (narudzba.Aktivna)
+            {
+                <td class="bg-success">&nbsp;</td>
+            }
+            else
+            {
+                <td class="bg-danger">&nbsp;</td>
+            }
+            <td> @narudzba.Datum</td>
+            @if (narudzba.Zavrsena)
+            {
+                <td class="bg-success">&nbsp;</td>
+            }
+            else
+            {
+                <td class="bg-danger">&nbsp;</td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+<table class="w-100 table-secondary table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Cijena</th>
+            <th>Kolicina</th>
+            <th>Ukupno</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.VarijacijeList?.Count > 0)
+        {
+            @foreach (var varijacija in Model.VarijacijeList)
+            {
+                <tr>
+                    @{
+                        int kolicina = varijacija.Kolicina;
+                        double cijena = varijacija.ProizvodVarijacija.Cijena;
+                        double total = kolicina * cijena;
+                        cijenaTotal += total;
+                        kolicinaTotal += kolicina;
+                        brProizvoda++;
+                    }
+
+                    <td>@brProizvoda</td>
+                    <td>@varijacija.ProizvodVarijacija.Proizvod.Naziv</td>
+                    <td>@varijacija.ProizvodVarijacija.Cijena KM</td>
+                    <td>@varijacija.Kolicina</td>
+                    <td>@total KM</td>
+                </tr>
+            }
+            <tr class="bg-info">
+                <td> </td>
+                <td colspan="2">@brProizvoda proizvod(a)</td>
+                <td>@kolicinaTotal</td>
+                <td>@cijenaTotal KM</td>
+            </tr>
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Narudzbe nisu pronadjene!</td>
+            </tr>
+        }
+    </tbody>
+</table>

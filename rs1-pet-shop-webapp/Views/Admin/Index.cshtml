@@ -1,0 +1,17 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminVM
+@{
+    string title = Model?.Title;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@title</h1>
+<hr/>
+
+
+<script>
+
+    if (window.location.pathname === '/Admin') {
+        window.location.replace('/Admin/Proizvod/Dodaj')
+    }
+
+</script>

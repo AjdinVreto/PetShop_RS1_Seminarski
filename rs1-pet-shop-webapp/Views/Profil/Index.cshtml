@@ -1,0 +1,152 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Korisnik.Profil.ProfilOsnoveVM;
+
+@{ 
+    Layout = "_KorisnikLayout"; 
+}
+
+<head>
+    <title>Bootstrap Example</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        .main {
+            background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+        }
+
+        .searchText {
+            font-size: 17px;
+        }
+
+        .searchButton {
+            font-size: 17px;
+        }
+
+        .dropdown-menu {
+            background-color: bisque;
+        }
+
+        .form {
+            font-size: 25px;
+        }
+
+        .form-control {
+            font-size: 15px;
+        }
+
+        .nav {
+            font-size: 12px;
+        }
+
+        .meni {
+            background-color: white;
+            font-weight: bold;
+        }
+
+        .sc {
+            font-size: 13px;
+        }
+
+        .idlbl {
+            visibility: hidden;
+        }
+
+        .lbl {
+            font-size: 17px;
+        }
+
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .error {
+            font-size: 17px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+
+
+<div class="main py-5">
+    <div class="container">
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="meni"><a asp-controller="Profil" asp-action="Index">Osnove</a></li>
+                <li class="meni"><a asp-controller="Profil" asp-action="Adrese">Adrese</a></li>
+                <li class="meni"><a asp-controller="Profil" asp-action="Password">Password</a></li>
+                <li class="meni"><a asp-controller="Report" asp-action="Index">Historija narudžbi</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <hr>
+                    <form class="form" method="post" asp-controller="Profil" asp-action="Index">
+                        <input asp-for="Id" value="@Model.Id" hidden />
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="ime"><h4 class="lbl">Ime</h4></label> <span asp-validation-for="Ime" class="error"></span>
+                                <input type="text" class="form-control" asp-for="Ime" placeholder="Ime" value="@Model.Ime">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="prezime"><h4 class="lbl">Prezime</h4></label> <span asp-validation-for="Prezime" class="error"></span>
+                                <input type="text" class="form-control" asp-for="Prezime" placeholder="Prezime" value="@Model.Prezime">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="email"><h4 class="lbl">Email</h4></label> <span asp-validation-for="Email" class="error"></span>
+                                <input type="email" class="form-control" asp-for="Email" placeholder="Unesite email" value="@Model.Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="telefon"><h4 class="lbl">Broj telefona</h4></label> <span asp-validation-for="BrojTelefona" class="error"></span>
+                                <input type="text" class="form-control" asp-for="BrojTelefona" placeholder="+38761111000" value="@Model.BrojTelefona">
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="drzava"><h4 class="lbl">Drzava</h4></label>
+                                <select type="text" class="form-control" style="min-height:38px;min-width:100px; font-size:18px;" asp-for="DrzavaId" asp-items="@Model.Drzave" placeholder="Drzava">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <input type="text" class="idlbl form-control" asp-for="Id">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Sačuvaj</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

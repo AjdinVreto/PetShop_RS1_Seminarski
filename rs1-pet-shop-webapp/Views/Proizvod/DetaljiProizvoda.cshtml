@@ -1,0 +1,645 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Korisnik.Proizvod.ProizvodDetaljiVM;
+
+@{
+    Layout = "_KorisnikLayout";
+}
+
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    <style>
+        .main {
+            background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+        }
+
+        .searchText {
+            font-size: 17px;
+        }
+
+        .searchButton {
+            font-size: 17px;
+        }
+
+        .dropdown-menu {
+            background-color: bisque;
+        }
+
+        .product-content {
+            border: 1px solid #dfe5e9;
+            margin-bottom: 20px;
+            margin-top: 12px;
+            background: #fff
+        }
+
+            .product-content .carousel-control.left {
+                margin-left: 0
+            }
+
+            .product-content .product-image {
+                background-color: #fff;
+                display: block;
+                min-height: 238px;
+                overflow: hidden;
+                position: relative
+            }
+
+            .product-content .product-deatil {
+                border-bottom: 1px solid #dfe5e9;
+                padding-bottom: 17px;
+                padding-left: 16px;
+                padding-top: 16px;
+                position: relative;
+                background: #fff
+            }
+
+                .product-content .product-deatil h5 a {
+                    color: #2f383d;
+                    font-size: 15px;
+                    line-height: 19px;
+                    text-decoration: none;
+                    padding-left: 0;
+                    margin-left: 0
+                }
+
+                    .product-content .product-deatil h5 a span {
+                        color: #9aa7af;
+                        display: block;
+                        font-size: 13px
+                    }
+
+                .product-content .product-deatil span.tag1 {
+                    border-radius: 50%;
+                    color: #fff;
+                    font-size: 15px;
+                    height: 50px;
+                    padding: 13px 0;
+                    position: absolute;
+                    right: 10px;
+                    text-align: center;
+                    top: 10px;
+                    width: 50px
+                }
+
+                .product-content .product-deatil span.sale {
+                    background-color: #21c2f8
+                }
+
+                .product-content .product-deatil span.discount {
+                    background-color: #71e134
+                }
+
+                .product-content .product-deatil span.hot {
+                    background-color: #fa9442
+                }
+
+            .product-content .description {
+                font-size: 12.5px;
+                line-height: 20px;
+                padding: 10px 14px 16px 19px;
+                background: #fff
+            }
+
+            .product-content .product-info {
+                padding: 11px 19px 10px 20px
+            }
+
+                .product-content .product-info a.add-to-cart {
+                    color: #2f383d;
+                    font-size: 13px;
+                    padding-left: 16px
+                }
+
+            .product-content name.a {
+                padding: 5px 10px;
+                margin-left: 16px
+            }
+
+        .product-info.smart-form .btn {
+            padding: 6px 12px;
+            margin-left: 12px;
+            margin-top: -10px
+        }
+
+        .product-entry .product-deatil {
+            border-bottom: 1px solid #dfe5e9;
+            padding-bottom: 17px;
+            padding-left: 16px;
+            padding-top: 16px;
+            position: relative
+        }
+
+            .product-entry .product-deatil h5 a {
+                color: #2f383d;
+                font-size: 15px;
+                line-height: 19px;
+                text-decoration: none
+            }
+
+                .product-entry .product-deatil h5 a span {
+                    color: #9aa7af;
+                    display: block;
+                    font-size: 13px
+                }
+
+        .load-more-btn {
+            background-color: #21c2f8;
+            border-bottom: 2px solid #037ca5;
+            border-radius: 2px;
+            border-top: 2px solid #0cf;
+            margin-top: 20px;
+            padding: 9px 0;
+            width: 100%
+        }
+
+        .product-block .product-deatil p.price-container span,
+        .product-content .product-deatil p.price-container span,
+        .product-entry .product-deatil p.price-container span,
+        .shipping table tbody tr td p.price-container span,
+        .shopping-items table tbody tr td p.price-container span {
+            color: #21c2f8;
+            font-family: Lato, sans-serif;
+            font-size: 24px;
+            line-height: 20px
+        }
+
+        .product-info.smart-form .rating label {
+            margin-top: 0
+        }
+
+        .product-wrap .product-image span.tag2 {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            padding: 10px 0;
+            color: #fff;
+            font-size: 11px;
+            text-align: center
+        }
+
+        .product-wrap .product-image span.sale {
+            background-color: #57889c
+        }
+
+        .product-wrap .product-image span.hot {
+            background-color: #a90329
+        }
+
+        .shop-btn {
+            position: relative
+        }
+
+            .shop-btn > span {
+                background: #a90329;
+                display: inline-block;
+                font-size: 10px;
+                box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+                font-weight: 700;
+                border-radius: 50%;
+                padding: 2px 4px 3px !important;
+                text-align: center;
+                line-height: normal;
+                width: 19px;
+                top: -7px;
+                left: -7px
+            }
+
+        .description-tabs {
+            padding: 30px 0 5px !important
+        }
+
+            .description-tabs .tab-content {
+                padding: 10px 0
+            }
+
+        .product-deatil {
+            padding: 30px 30px 50px
+        }
+
+            .product-deatil hr + .description-tabs {
+                padding: 0 0 5px !important
+            }
+
+            .product-deatil .carousel-control.left,
+            .product-deatil .carousel-control.right {
+                background: none !important
+            }
+
+            .product-deatil .glyphicon {
+                color: #3276b1
+            }
+
+            .product-deatil .product-image {
+                border-right: none !important
+            }
+
+            .product-deatil .name {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+                .product-deatil .name small {
+                    display: block
+                }
+
+                .product-deatil .name a {
+                    margin-left: 0
+                }
+
+            .product-deatil .price-container {
+                font-size: 24px;
+                margin: 0;
+                font-weight: 300
+            }
+
+                .product-deatil .price-container small {
+                    font-size: 12px
+                }
+
+            .product-deatil .fa-2x {
+                font-size: 16px !important
+            }
+
+                .product-deatil .fa-2x > h5 {
+                    font-size: 12px;
+                    margin: 0
+                }
+
+                .product-deatil .fa-2x + a,
+                .product-deatil .fa-2x + a + a {
+                    font-size: 13px
+                }
+
+        .profile-message ul {
+            list-style: none;
+        }
+
+        .product-deatil .certified {
+            margin-top: 10px
+        }
+
+            .product-deatil .certified ul {
+                padding-left: 0
+            }
+
+                .product-deatil .certified ul li:not(first-child) {
+                    margin-left: -3px
+                }
+
+                .product-deatil .certified ul li {
+                    display: inline-block;
+                    background-color: #f9f9f9;
+                    border: 1px solid #ccc;
+                    padding: 13px 19px
+                }
+
+                    .product-deatil .certified ul li:first-child {
+                        border-right: none
+                    }
+
+                    .product-deatil .certified ul li a {
+                        text-align: left;
+                        font-size: 12px;
+                        color: #6d7a83;
+                        line-height: 16px;
+                        text-decoration: none
+                    }
+
+                        .product-deatil .certified ul li a span {
+                            display: block;
+                            color: #21c2f8;
+                            font-size: 13px;
+                            font-weight: 700;
+                            text-align: center
+                        }
+
+        .product-deatil .message-text {
+            width: calc(100% - 70px)
+        }
+
+        @@media only screen and (min-width:1024px) {
+            .product-content div[class*=col-md-4] {
+                padding-right: 0
+            }
+
+            .product-content div[class*=col-md-8] {
+                padding: 0 13px 0 0
+            }
+
+            .product-wrap div[class*=col-md-5] {
+                padding-right: 0
+            }
+
+            .product-wrap div[class*=col-md-7] {
+                padding: 0 13px 0 0
+            }
+
+            .product-content .product-image {
+                border-right: 1px solid #dfe5e9
+            }
+
+            .product-content .product-info {
+                position: relative
+            }
+        }
+
+        .message img.online {
+            width: 40px;
+            height: 40px;
+        }
+
+        .korpaButton {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .slika {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        .cijena {
+            font-weight: bold;
+        }
+
+        .cijenaButton {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        div.stars {
+            width: 270px;
+            display: inline-block
+        }
+
+        .mt-200 {
+            margin-top: 200px
+        }
+
+        input.star {
+            display: none
+        }
+
+        label.star {
+            float: right;
+            padding: 10px;
+            font-size: 36px;
+            color: #4A148C;
+            transition: all .2s
+        }
+
+        input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s
+        }
+
+        input.star-5:checked ~ label.star:before {
+            color: #FE7;
+            text-shadow: 0 0 20px #952
+        }
+
+        input.star-1:checked ~ label.star:before {
+            color: #F62
+        }
+
+        label.star:hover {
+            transform: rotate(-15deg) scale(1.3)
+        }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome
+        }
+    </style>
+</head>
+
+<div class="main py-5">
+<div class="container">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <!-- product -->
+        <div class="product-content product-wrap clearfix product-deatil">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div class="product-image">
+                        <div class="carousel-inner">
+                            <!-- Slide 1 -->
+                            <div class="item active">
+                                <img src="/images/@Model.Slika" class="slika img-responsive" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
+                    <h2 class="name">
+                        <h1>@Model.Naziv</h1><br />
+                        @if (Model.Ocjena < 1.50)
+                        {
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                        }
+                        else if (Model.Ocjena >= 1.50 && Model.Ocjena < 2.51)
+                        {
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                        }
+                        else if (Model.Ocjena > 2.50 && Model.Ocjena < 3.51)
+                        {
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                        }
+                        else if (Model.Ocjena > 3.50 && Model.Ocjena < 4.51)
+                        {
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                        }
+                        else if (Model.Ocjena > 4.50)
+                        {
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                            <i class="fa fa-star fa-2x text-primary"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                            <i class="fa fa-star fa-2x text-muted"></i>
+                        }
+                        <span class="fa fa-2x"><h5>(@Model.BrojGlasova) Glasova</h5></span>
+                    </h2>
+                    <hr />
+                    <h3 class="price-container">
+                        <h3 class="cijena">Cijena: <button class="cijenaButton btn btn-success btn-lg disabled"> @Model.Cijena KM</button></h3>
+                        <h3 class="cijena">Veličina: <button class="cijenaButton btn btn-success btn-lg disabled"> @Model.Velicina </button></h3>
+                    </h3>
+                    <hr />
+                    <div class="description description-tabs">
+                        <ul id="myTab" class="nav nav-pills">
+                            <li class="active"><a href="#more-information" data-toggle="tab" class="no-margin" style="font-weight:bold;">Opis proizvoda</a></li>
+                            <li class=""><a href="#comments" data-toggle="tab" style="font-weight:bold;">Komentari</a></li>
+                            <li class=""><a href="#reviews" data-toggle="tab" style="font-weight:bold;">Ocjeni proizvod</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane active" id="more-information" style="word-break:break-word;">
+                                <br />
+                                <h3>@Model.Opis</h3>
+                            </div>
+                            <div class="tab-pane" id="comments">
+                                <br />
+                                <form method="post" class="well padding-bottom-10" id="forma">
+                                    <input asp-for="KorisnikId" value="@Model.KorisnikId" hidden />
+                                    <input asp-for="ProizvodId" value="@Model.ProizvodId" hidden />
+                                    <input asp-for="ProizvodVarijacijaId" value="@Model.ProizvodVarijacijaId" hidden />
+                                    <textarea asp-for="Komentar" rows="2" class="form-control" placeholder="Napišite komentar" style="font-size:14px;"></textarea>
+                                    <div class="margin-top-10">
+                                        <button type="submit" class="btn btn-sm btn-primary pull-right" id="btnSubmit" style="font-size:12px;">
+                                            Postavi komentar
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <div class="chat-body no-padding profile-message">
+                                    <ul>
+                                        @foreach (var item in Model.Rows)
+                                        {
+                                            <li class="message">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="online" />
+                                                <div class="message-text" style="word-break:break-word;">
+                                                    <a href="javascript:void(0);" class="username">
+                                                        @item.ImePrezimeKorisnika <br />
+                                                    </a>
+                                                    <h4>@item.Komentari</h4>
+                                                </div>
+                                                <ul class="list-inline font-xs">
+                                                    <li class="pull-right">
+                                                        <small class="text-muted pull-right ultra-light"> @item.Datum </small>
+                                                    </li>
+                                                </ul>
+                                                <hr />
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="reviews" style="word-break:break-word;">
+                                <div class="container d-flex justify-content-center mt-30">
+                                    <div class="stars">
+                                        @if (Model.OcjenaKorisnika == 1)
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" checked /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                        else if (Model.OcjenaKorisnika == 2)
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" checked /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                        else if (Model.OcjenaKorisnika == 3)
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" checked /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                        else if (Model.OcjenaKorisnika == 4)
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" checked /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                        else if (Model.OcjenaKorisnika == 5)
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" checked /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                        else
+                                        {
+                                            <input class="star star-5" id="star-5" type="radio" name="star" value="5" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-5" for="star-5"></label> <input class="star star-4" id="star-4" type="radio" name="star" value="4" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-4" for="star-4"></label> <input class="star star-3" id="star-3" type="radio" name="star" value="3" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-3" for="star-3"></label> <input class="star star-2" id="star-2" type="radio" name="star" value="2" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-2" for="star-2"></label> <input class="star star-1" id="star-1" type="radio" name="star" value="1" onclick="OcjeniProizvod(@Model.ProizvodId, @Model.KorisnikId, value)" /> <label class="star star-1" for="star-1"></label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <button class="korpaButton btn btn-success btn-lg btn-block" onclick="korpaDodaj(@Model.ProizvodVarijacijaId)">Dodaj u korpu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end product -->
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            var data = $("#forma").serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "/Proizvod/PostaviKomentar",
+                data: data,
+                success: function (data) {
+                    alert("Komentar ceka na odobrenje");
+                }
+            })
+        })
+    })
+
+    function OcjeniProizvod(proizvodId, KorisnikId, ocjena) {
+
+        $.ajax({
+            type: "POST",
+            url: "/Proizvod/OcjeniProizvod",
+            data: { proizvodId: proizvodId, KorisnikId: KorisnikId, ocjena: ocjena },
+            success: function (data) {
+
+            }
+        })
+    }
+
+    function korpaDodaj(id) {
+        $.ajax({
+            type: "GET",
+            url: "/Narudzba/Index",
+            data: { id: id },
+            success: function () {
+                swal({
+                    title: "Proizvod uspješno dodan",
+                    text: "Vaš odabrani proizvod je uspješno dodan u korpu",
+                    type: "info",
+                    confirmButtonText: "OK"
+                });
+            },
+            error: function () {
+                swal({
+                    title: "Proizvod već postoji u korpi",
+                    text: "Odabrani proizvod se već nalazi u vašoj korpi",
+                    type: "warning",
+                    confirmButtonText: "OK"
+                });
+            }
+        })
+    }
+</script>

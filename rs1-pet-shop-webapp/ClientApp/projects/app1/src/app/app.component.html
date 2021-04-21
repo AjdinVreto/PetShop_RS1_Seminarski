@@ -1,0 +1,181 @@
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+  <style>
+    .main {
+      background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    }
+
+    .contact-form {
+      background: #fff;
+      margin-top: 0%;
+      margin-bottom: 0%;
+      width: 100%;
+      background-color: transparent;
+    }
+
+      .contact-form .form-control {
+        border-radius: 1rem;
+      }
+
+      .contact-form form {
+        padding: 8%;
+      }
+
+        .contact-form form .row {
+          margin-bottom: -7%;
+        }
+
+      .contact-form h1 {
+        margin-bottom: 8%;
+        margin-top: -10%;
+        text-align: center;
+        color: #0062cc;
+        font-size: 35px;
+      }
+
+      .contact-form .btnContact {
+        width: 50%;
+        border: none;
+        border-radius: 1rem;
+        padding: 1.5%;
+        background: #dc3545;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+      }
+
+    .btnContactSubmit {
+      width: 50%;
+      border-radius: 1rem;
+      padding: 1.5%;
+      color: #fff;
+      background-color: #0062cc;
+      border: none;
+      cursor: pointer;
+    }
+
+    .searchText {
+      font-size: 17px;
+    }
+
+    .searchButton {
+      font-size: 17px;
+    }
+
+    .dropdown-menu {
+      background-color: bisque;
+    }
+
+    .form {
+      font-size: 25px;
+    }
+
+    .form-control {
+      font-size: 15px;
+    }
+
+    .nav {
+      font-size: 12px;
+    }
+
+    .meni {
+      background-color: white;
+      font-weight: bold;
+    }
+
+    .sc {
+      font-size: 13px;
+    }
+
+    .btnContact {
+      font-size: 18px;
+    }
+
+    .forma {
+      font-size: 18px;
+    }
+
+    .error {
+      font-size: 17px;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+
+<div class="main py-5">
+  <div class="container contact-form">
+    <form #forma="ngForm" (ngSubmit)="spremiPodatke(forma.value)" id="forma">
+      <h1>Kontakt</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input ngModel name="ime" class="form-control forma" placeholder="Ime" required />
+          </div>
+          <div class="form-group">
+            <input ngModel name="email" type="email" class="form-control forma" placeholder="E-mail" required />
+          </div>
+          <div class="form-group">
+            <button type="submit" name="btnSubmit" class="btnContact" value="Pošalji poruku">Posalji poruku</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <textarea ngModel name="text" class="form-control forma" placeholder="Poruka" style="width: 100%; height: 150px;" required></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <button (click)="tableToggle()" class="btn-success">Prikaži prethodne poruke</button><button (click)="faqToggle()" class="btn-secondary">FAQ</button>
+    <div *ngIf="provjera==true">
+      <table class="table table-bordered table-dark">
+        <thead>
+          <tr class="text-center">
+            <th>Ime</th>
+            <th>Email</th>
+            <th>Text</th>
+            <th>Odgovoreno</th>
+            <th>Odgovori</th>
+          </tr>
+        </thead>
+
+        <tr *ngFor="let k of kon.kontakti">
+          <td>{{k.ime}}</td>
+          <td>{{k.email}}</td>
+          <td>{{k.text}}</td>
+          <td class="text-center">
+            <span *ngIf="k.odgovoreno==true">DA</span><span *ngIf="k.odgovoreno==false">NE</span>
+          </td>
+          <td>
+            <button *ngIf="k.odgovoreno==true" (click)="odgovorToggle(k)" class="btn btn-success">Procitaj odgovor</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="provjeraOdgovor==true">
+      <textarea readonly rows="5" cols="160">Odgovor na vas upit:
+{{odg.odgovor}}
+      </textarea>
+    </div>
+    <div *ngIf="provjeraFaq==true">
+      <textarea readonly rows="15" cols="160">P: Koje je radno vrijeme poslovnice ?
+O: 09:00 - 17:00
+
+P: Koje načine plaćanja mogu koristiti ?
+O: Naš online shop prihvaća plaćanje svim karticama.
+
+P: Zašto kupovati online ?
+O: Veoma dobar, siguran i brz proces kupovine.
+
+P: Kako mogu kupovati online ?
+O: Da bi kupovali u našem online shopu morate kreirati vaš nalog, nakon kreiranja naloga možete koristiti naš shop, ubacivati proizvode u vašu korpu te izvršavati narudžbe.
+      </textarea>
+    </div>
+  </div>
+</div>
+

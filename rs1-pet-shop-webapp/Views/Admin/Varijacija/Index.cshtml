@@ -1,0 +1,77 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminVarijacijaVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table tr th,
+    table tr td {
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+</style>
+
+<h1>Proizvodi</h1>
+
+<table class="w-100 table-secondary">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Proizvod</td>
+            <td>Opis</td>
+            <td>Pakovanje</td>
+            <td>Cijena</td>
+            <td>Slika</td>
+            <td>Action</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.VarijacijaList.Count > 0)
+        {
+            @foreach (var proizvod in Model.VarijacijaList)
+            {
+                <tr>
+                    <td>@proizvod.Id</td>
+                    <td>[@proizvod.Proizvod.Id] @proizvod.Proizvod.Naziv</td>
+                    <td>@proizvod.Opis</td>
+                    <td>@proizvod.Velicina</td>
+                    <td>@proizvod.Cijena</td>
+                    <td class="wh-64 onHoverExplode">
+                        @if(proizvod.Slika != null)
+                        {
+                            <img src="/images/@proizvod.Slika.Putanja" alt="@proizvod.Slika.Id" class="wh-64" onclick="toggleImageSize(this)" />
+                        }
+                    </td>
+                    <td><a class="btn btn-success" asp-route="AdminVarijacijaUredi" asp-route-id="@proizvod.Id">Uredi</a></td>
+                    <td><button class="btn btn-danger" onclick="obrisiVarijaciju(this, @proizvod.Id);">Obrisi</button></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Zapisi nisu pronadjeni!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function obrisiVarijaciju(el, id) {
+        if (!window.confirm("Obrisi varijaciju: " + id)) return;
+        fetch(`/Admin/Varijacija/Obrisi?id=${id}`, { method: "POST" }).then(() => {
+            el.parentNode.parentNode.remove();
+        })
+    }
+
+    function toggleImageSize(img) {
+        [...document.querySelectorAll(".onHoverExplode.explode")].forEach(el => {
+            if (el !== img.parentNode) {
+                el.classList.remove("explode");
+            }
+        })
+        img.parentNode.classList.toggle("explode");
+    }
+
+</script>

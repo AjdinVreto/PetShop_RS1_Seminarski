@@ -1,0 +1,28 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminPopustKuponVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Dodaj</h1>
+
+<form asp-route="AdminKuponDodaj" method="post">
+    <div class="form-group">
+        <label for="Grad" asp-for="Iznos">Iznos</label>
+        <input type="number" class="form-control" id="Iznos" name="Iznos" asp-for="Iznos" value="@Model?.Iznos">
+        <span asp-validation-for="Iznos" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Kod">Kod</label>
+        <input type="text" class="form-control" id="Kod" asp-for="Kod" value="@Model?.Kod">
+        <span asp-validation-for="Kod" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="VrstaPopusta">Vrsta Popusta</label>
+        <select class="form-control custom-select" id="VrstaPopusta" asp-for="VrstaPopusta" value="@Model?.VrstaPopusta">
+               <option value="fix">Fix</option>
+            <option value="posto">%</option>
+        </select>
+        <span asp-validation-for="VrstaPopusta" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</form>

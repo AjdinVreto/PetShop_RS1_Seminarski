@@ -1,0 +1,44 @@
+﻿.wh-128 {
+    width: 128px !important;
+    height: 128px !important;
+}
+
+.w-128 {
+    width: 128px !important;
+}
+
+.h-128 {
+    height: 128px !important;
+}
+
+.wh-64 {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important
+}
+
+.obj-fit-cover{
+    object-fit: cover;
+}
+.onHoverExplode img{
+    top: 50%;
+    left: 50%;
+    transform: scale(1) translate(0,0);
+    transform-origin: center;
+    transition: 1s;
+}
+
+.onHoverExplode.explode{
+    text-align: center;
+}
+
+.onHoverExplode.explode img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: scale(5) translate(-25%, 0);
+    border: 1px solid #000;
+}

@@ -1,0 +1,50 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminKorisnikVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    table.table td {
+        vertical-align: middle;
+    }
+</style>
+
+<h1>Korisnik</h1>
+
+<table class="w-100 table-secondary table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Broj telefona</th>
+            <th>Drzava</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.KorisnikList.Count > 0)
+        {
+            @foreach (var korisnik in Model.KorisnikList)
+            {
+                <tr>
+                    <td>@korisnik.Id</td>
+                    <td>@korisnik.Ime</td>
+                    <td>@korisnik.Prezime</td>
+                    <td>@korisnik.Email</td>
+                    <td>@korisnik.BrojTelefona</td>
+                    <td>@korisnik.Drzava.Naziv</td>
+                    <td><a asp-route="AdminKorisnikPregled" asp-route-id="@korisnik.Id" class="btn btn-success">Pregled</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Zapisi nisu pronadjeni!</td>
+            </tr>
+        }
+    </tbody>
+</table>

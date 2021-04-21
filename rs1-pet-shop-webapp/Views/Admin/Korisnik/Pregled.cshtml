@@ -1,0 +1,102 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminKorisnikVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table.table td {
+        vertical-align: middle;
+    }
+</style>
+
+<h1>Korisnik @Model.Ime @Model.Prezime</h1>
+
+<table class="w-100 table-secondary table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Ime</td>
+            <td>@Model.Ime</td>
+        </tr>
+        <tr>
+            <td>Prezime</td>
+            <td>@Model.Prezime</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Broj telefona</td>
+            <td>@Model.BrojTelefona</td>
+        </tr>
+        <tr>
+            <td>Drzava</td>
+            <td>@Model.Drzava.Naziv</td>
+        </tr>
+        <tr>
+            <td>Broj narudzbi</td>
+            <td>@Model.BrojNarudzbi</td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Narudzbe</h1>
+
+<table class="w-100 table-secondary table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Adresa</th>
+            <th>Aktivna </th>
+            <th>Datum</th>
+            <th>Zavrsena</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.NarudzbaList.Count > 0)
+        {
+            @foreach (var narudzba in Model.NarudzbaList)
+            {
+                <tr>
+                    <td>@narudzba.Id</td>
+                    <td>@(narudzba.Adresa != null ? narudzba.Adresa.Naziv : null)</td>
+                    @if (narudzba.Aktivna)
+                    {
+                        <td class="bg-success">&nbsp;</td>
+                    }
+                    else
+                    {
+                        <td class="bg-danger">&nbsp;</td>
+                    }
+                    <td> @narudzba.Datum</td>
+                    @if (narudzba.Zavrsena)
+                    {
+                        <td class="bg-success">&nbsp;</td>
+                    }
+                    else
+                    {
+                        <td class="bg-danger">&nbsp;</td>
+                    }
+                    <td><a asp-route="AdminNarudzbaPregled" asp-route-id="@narudzba.Id" class="btn btn-success">Pregled</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Narudzbe nisu pronadjene!</td>
+            </tr>
+        }
+    </tbody>
+</table>

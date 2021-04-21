@@ -1,0 +1,75 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: '.NET Restore'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    noCache: true
+
+- task: Npm@1
+  displayName: 'Restore Angular Dependencies'
+  inputs:
+    workingDir: rs1-pet-shop-webapp/ClientApp
+    verbose: false
+
+- task: Npm@1
+  displayName: 'Build Angular'
+  inputs:
+    command: custom
+    workingDir: rs1-pet-shop-webapp/ClientApp
+    verbose: false
+    customCommand: 'run build'
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Build'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Test'
+  inputs:
+    command: 'test'
+    projects: '**/*[Tt]ests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    zipAfterPublish: false
+
+- task: FtpUpload@2
+  displayName: 'FTP Upload'
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftp://p2023.app.fit.ba'
+    username: 'p2023_ftp'
+    password: 'pCg7Au!'
+    rootDirectory: '$(build.artifactstagingdirectory)/rs1-pet-shop-webapp'
+    filePatterns: '**'
+    remoteDirectory: '/httpdocs/'
+    clean: false
+    cleanContents: true
+    preservePaths: true
+    trustSSL: false

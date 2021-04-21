@@ -1,0 +1,57 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminDodajProizvodVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table tr th,
+    table tr td {
+        padding: 1rem;
+    }
+</style>
+
+<h1>Proizvodi</h1>
+
+<table class="w-100 table-secondary">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Naziv</td>
+            <td>Proizvodjac</td>
+            <td>Kategorija</td>
+            <td>Action</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ProizvodList.Count > 0)
+        {
+            @foreach (var proizvod in Model.ProizvodList)
+            {
+                <tr>
+                    <td>@proizvod.Id</td>
+                    <td>@proizvod.Naziv</td>
+                    <td>@proizvod.Proizvodjac.Naziv</td>
+                    <td>@proizvod.Kategorija.Vrsta</td>
+                    <td><a class="btn btn-success" asp-route="AdminProizvodUredi" asp-route-id="@proizvod.Id">Uredi</a></td>
+                    <td><button class="btn btn-danger" onclick="obrisiProizvod(this, @proizvod.Id);">Obrisi</button></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Zapisi nisu pronadjeni!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function obrisiProizvod(el, id) {
+        if (!window.confirm("Obrisi kupon ID: " + id)) return;
+        fetch(`/Admin/Proizvod/Obrisi?id=${id}`, { method: "POST" }).then(() => {
+            el.parentNode.parentNode.remove();
+        })
+    }
+</script>

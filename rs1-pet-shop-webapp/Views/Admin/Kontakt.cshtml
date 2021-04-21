@@ -1,0 +1,97 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminKontaktVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<style>
+    table tr th,
+    table tr td{
+        padding: 1rem;
+    }
+</style>
+<h1>Kontakt</h1>
+<table class="w-100 table-secondary table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ime</th>
+            <th>Email</th>
+            <th>Text</th>
+            <th>AdminId</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.KontaktList.Count() > 0)
+        {
+            @foreach (var kontakt in Model.KontaktList)
+            {
+        <tr>
+            <td>@kontakt.Id</td>
+            <td>@kontakt.Ime</td>
+            <td><a href="mailto:@kontakt.Email">@kontakt.Email</a></td>
+            <td>
+                @if (kontakt.Text != null && kontakt.Text.Length > 100)
+                {
+                    @kontakt.Text.Substring(0, 100)
+                    <span class="btn-link " onclick="this.parentNode.innerText = `@kontakt.Text`">Show more</span>
+                }
+                else
+                {
+                    @kontakt.Text
+                }
+            </td>
+            <td>
+                @if (kontakt.Odgovoreno)
+                {<span>@kontakt.AdminId </span>}
+            else
+            { <span>0</span>}
+        </td>
+            <td>
+                @if (kontakt.Odgovoreno)
+                {
+                    <button class="btn btn-success" onclick="pregledaj(this, @kontakt.Id)">
+                        Neprocitano
+                    </button>
+                }
+                else
+                {
+                    <button class="btn btn-success" onclick="pregledaj(this, @kontakt.Id)">
+                        Procitaj
+                    </button>
+                }
+            </td>
+
+<td><button class="btn btn-danger" onclick="obrisiUnos(this, @kontakt.Id)">Obrisi</button></td>
+        </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Nema podataka.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function obrisiUnos(el, id) {
+        if (window.confirm("Obrisi unos?")) {
+            fetch(`/Admin/Kontakt/Obrisi?id=${id}`, { method: "POST" }).then(() => {
+                el.parentNode.parentNode.remove();
+            })
+        }
+    }
+
+    function pregledaj(el, id) {
+        fetch(`/Admin/Kontakt/Pregledaj?id=${id}`, { method: "POST" }).then(req => req.text()).then((res) => {
+            if (isNaN(Number(res))) {
+                return window.alert(res);
+            }
+            const td= el.parentNode.parentNode.querySelectorAll('td')
+            td[4].innerText = res;
+        })
+    }
+</script>

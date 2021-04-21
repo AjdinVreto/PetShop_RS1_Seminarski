@@ -1,0 +1,48 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminNovostiVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Dodaj</h1>
+
+<form enctype="multipart/form-data" asp-route="AdminNovostiDodaj" method="post" id="DodajNovost">
+    <img class="img-fluid d-none w-25" id="prev" alt="prev" />
+    <div class="form-group">
+        <label for="file" asp-for="SlikaFile">Slika</label>
+        <input type="file" class="form-control" id="file" name="SlikaFile" asp-for="SlikaFile">
+        <span asp-validation-for="SlikaFile" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Naslov">Naslov</label>
+        <input type="text" class="form-control" id="Naslov" asp-for="Naslov" value="@Model?.Naslov">
+        <span asp-validation-for="Naslov" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Text">Text</label>
+        <textarea class="form-control" id="Text" rows="3" asp-for="Text">@Model?.Text</textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Spremi</button>
+</form>
+
+<script>
+    const form = document.querySelector("form#DodajNovost");
+    const img = form.querySelector("img");
+    const fileInp = form.querySelector("#file");
+
+    fileInp.addEventListener('change', handleImageSelect);
+
+    function handleImageSelect(e) {
+        const files = e.target.files;
+        if (!files.length) return;
+
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = async (readerEvent) => {
+            const content = readerEvent.target.result; // this is the content!
+            img.src = content;
+            img.classList.remove('d-none')
+        };
+    }
+
+</script>

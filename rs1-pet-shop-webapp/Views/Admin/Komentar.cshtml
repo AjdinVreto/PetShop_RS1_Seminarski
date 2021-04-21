@@ -1,0 +1,62 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminKomentarVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table tr th,
+    table tr td {
+        padding: .5rem;
+    }
+</style>
+
+<h1>Komentari</h1>
+
+<table class="w-100 table-secondary table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Proizvod</th>
+            <th>Datum</th>
+            <th>Korisnik</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <th colspan="6">Text</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.KomentarList.Count() > 0)
+        {
+            @foreach (var komentar in Model.KomentarList)
+            {
+                <tr>
+                    <td>@komentar.Id</td>
+                    <td>@komentar.Proizvod.Naziv</td>
+                    <td>@komentar.Datum</td>
+                    <td>@komentar.Korisnik.Ime @komentar.Korisnik.Prezime</td>
+                    <td>
+                        <form asp-route="AdminKomentarOdobri" asp-route-id="@komentar.Id" method="post">
+                            <button class="btn btn-success">Odobri</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-route="AdminKomentarOdbij" asp-route-id="@komentar.Id" method="post">
+                            <button class="btn btn-danger">Odbij</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">@komentar.Text</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6">Nema podataka.</td>
+            </tr>
+        }
+    </tbody>
+</table>

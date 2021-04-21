@@ -1,0 +1,26 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminPoslovnicaVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Dodaj</h1>
+
+<form asp-route="AdminPoslovnicaUredi" method="post">
+    <input type="hidden" name="Id" value="@Model.Id"/>
+    <div class="form-group">
+        <label for="Grad" asp-for="Grad">Grad</label>
+        <input type="text" class="form-control" id="Grad" name="Grad" asp-for="Grad" value="@Model?.Grad">
+        <span asp-validation-for="Grad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adresa">Adresa</label>
+        <input type="text" class="form-control" id="Adresa" asp-for="Adresa" value="@Model?.Adresa">
+        <span asp-validation-for="Adresa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BrojTelefona">Broj Telefona</label>
+        <input type="text" class="form-control" id="BrojTelefona" asp-for="BrojTelefona" value="@Model?.BrojTelefona">
+        <span asp-validation-for="BrojTelefona" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Uredi</button>
+</form>

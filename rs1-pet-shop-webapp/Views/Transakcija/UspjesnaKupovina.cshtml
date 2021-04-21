@@ -1,0 +1,54 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Korisnik.Transakcija.TransakcijaUspjesnoVM;
+
+@{
+    ViewData["Title"] = "UspjesnaKupovina";
+    Layout = "_KorisnikLayout";
+}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        .main {
+            background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+        }
+
+        .searchText {
+            font-size: 17px;
+        }
+
+        .searchButton {
+            font-size: 17px;
+        }
+
+        .succsess {
+            font-size: 36px;
+        }
+
+        .btn {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<div class="main py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-6 col-sm-offset-3">
+                <br><br> <h2 class="succsess" style="color:#0fad00">Kupovina uspješna</h2>
+                <h3>Poštovani, @Model.ImePrezime</h3>
+                <p style="font-size:22px;color:#5C5C5C;">
+                    Hvala vam na vašoj kupovini. Proizvodi će biti dostavljeni na vašu adresu u najkraćem mogućem roku.
+                    Lijep pozdrav
+                </p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-success">Početna</a>
+                <br><br>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

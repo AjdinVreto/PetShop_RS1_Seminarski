@@ -1,0 +1,56 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminPoslovnicaVM;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    table tr th,
+    table tr td{
+        padding: 1rem;
+    }
+</style>
+
+<h1>Poslovnice</h1>
+<table class="w-100 table-secondary">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Adresa</th>
+            <th>Grad</th>
+            <th>Broj telefona</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.PoslovnicaList.Count > 0)
+        {
+            @foreach(var poslovnica in Model.PoslovnicaList)
+            {
+                   <tr>
+                       <td>@poslovnica.Id</td>
+                       <td>@poslovnica.Grad</td>
+                       <td>@poslovnica.Adresa</td>
+                       <td>@poslovnica.BrojTelefona</td>
+                       <td><a asp-route="AdminPoslovnicaUredi" asp-route-id="@poslovnica.Id" class="btn btn-success">Uredi</a></td>
+                       <td><button onclick="obrisiPoslovnicu(this, @poslovnica.Id)"  class="btn btn-danger">Obrisi</button></td>
+                   </tr>
+            }
+        }
+        else
+        {
+            <tr colspan="5">
+                <td>Zapisi nisu pronadjeni!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function obrisiPoslovnicu(el, id) {
+        if (!window.confirm("Obrisi poslovnicu ID: "+id)) return;
+        fetch(`/Admin/Poslovnica/Obrisi?id=${id}`, { method: "POST" }).then(() => {
+            el.parentNode.parentNode.remove();
+        });
+    }
+</script>

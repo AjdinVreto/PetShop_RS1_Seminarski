@@ -1,0 +1,32 @@
+﻿@model rs1_pet_shop_webapp.ViewModels.Admin.AdminNovostiListVM
+@{
+    string title = Model?.Title;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@title Novosti</h1>
+
+
+@if (Model?.NovostiList?.Count() > 0)
+{
+    <h3>Novosti count: @Model?.NovostiList?.Count</h3>
+    <ul class="list-unstyled">
+        @foreach (var novost in Model.NovostiList)
+        {
+            <li class="media my-1 d-flex border-bottom">
+                <img src="~/images/@novost.Slika" class="mr-3 wh-128 obj-fit-cover" alt="@novost.SlikaId">
+                <div class="media-body w-50 h-128 overflow-hidden">
+                    <a class="mt-0 mb-1 h5 d-block" asp-controller="Novosti" asp-action="NovostiDetalji" asp-route-id="@novost.Id">@novost.Naslov</a>
+                    <p>@novost.Text</p>
+                </div>
+                <div class="d-flex flex-column wh-128">
+                    <a asp-route="AdminNovostiUredi" asp-route-id="@novost.Id" class="btn btn-success mb-1">Uredi</a>
+                    <form class="w-100" asp-route="AdminNovostiObrisi" method="post" onsubmit="return confirm('Obrisi novost?');">
+                        <input type="hidden" name="Id" value="@novost.Id" />
+                        <button class="btn btn-danger w-100">Obrisi</button>
+                    </form>
+                </div>
+            </li>
+        }
+    </ul>
+}

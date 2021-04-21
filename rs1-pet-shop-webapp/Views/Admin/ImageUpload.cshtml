@@ -1,0 +1,25 @@
+﻿
+@{
+    var slike = (List<rs1_pet_shop_webapp.EntityModels.Slika>)ViewData["slike"];
+    ViewData["Title"] = "ImageUpload";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>ImageUpload</h1>
+
+<form method="POST" enctype="multipart/form-data" asp-action="ImageUpload" asp-controller="AdminProizvod">
+    <input type="text" name="Id" required/>
+    <input type="file" name="Slika" required/>
+    <input type="submit" value="Upload"/>
+</form>
+
+
+<ul>
+@foreach(var img in slike)
+{
+    <li>
+        <p>@img.Id</p>
+        <img src="/images/@img.Putanja" alt="slika"/>
+    </li>
+}
+</ul>
